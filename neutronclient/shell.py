@@ -32,6 +32,7 @@ from neutronclient.common import exceptions as exc
 from neutronclient.common import utils
 from neutronclient.neutron.v2_0 import agent
 from neutronclient.neutron.v2_0 import agentscheduler
+from neutronclient.neutron.v2_0 import credential
 from neutronclient.neutron.v2_0 import extension
 from neutronclient.neutron.v2_0 import floatingip
 from neutronclient.neutron.v2_0.lb import healthmonitor as lb_healthmonitor
@@ -39,8 +40,10 @@ from neutronclient.neutron.v2_0.lb import member as lb_member
 from neutronclient.neutron.v2_0.lb import pool as lb_pool
 from neutronclient.neutron.v2_0.lb import vip as lb_vip
 from neutronclient.neutron.v2_0 import network
+from neutronclient.neutron.v2_0 import networkprofile
 from neutronclient.neutron.v2_0 import nvp_qos_queue
 from neutronclient.neutron.v2_0 import nvpnetworkgateway
+from neutronclient.neutron.v2_0 import policyprofile
 from neutronclient.neutron.v2_0 import port
 from neutronclient.neutron.v2_0 import quota
 from neutronclient.neutron.v2_0 import router
@@ -177,6 +180,18 @@ COMMAND_V2 = {
     'l3-agent-router-remove': agentscheduler.RemoveRouterFromL3Agent,
     'router-list-on-l3-agent': agentscheduler.ListRoutersOnL3Agent,
     'l3-agent-list-hosting-router': agentscheduler.ListL3AgentsHostingRouter,
+    'credential-list': credential.ListCredential,
+    'credential-show': credential.ShowCredential,
+    'credential-create': credential.CreateCredential,
+    'credential-delete': credential.DeleteCredential,
+    'network-profile-list': networkprofile.ListNetworkProfile,
+    'network-profile-show': networkprofile.ShowNetworkProfile,
+    'network-profile-create': networkprofile.CreateNetworkProfile,
+    'network-profile-delete': networkprofile.DeleteNetworkProfile,
+    'network-profile-update': networkprofile.UpdateNetworkProfile,
+    'policy-profile-list': policyprofile.ListPolicyProfile,
+    'policy-profile-show': policyprofile.ShowPolicyProfile,
+    'policy-profile-update': policyprofile.UpdatePolicyProfile,
 }
 
 COMMANDS = {'2.0': COMMAND_V2}
