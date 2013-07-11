@@ -21,9 +21,9 @@ import fixtures
 import mox
 import testtools
 
-from quantumclient.common import constants
-from quantumclient import shell
-from quantumclient.v2_0 import client
+from neutronclient.common import constants
+from neutronclient import shell
+from neutronclient.v2_0 import client
 
 
 API_VERSION = "2.0"
@@ -170,10 +170,10 @@ class CLITestV20Base(testtools.TestCase):
         self.fake_stdout = FakeStdout()
         self.useFixture(fixtures.MonkeyPatch('sys.stdout', self.fake_stdout))
         self.useFixture(fixtures.MonkeyPatch(
-            'quantumclient.quantum.v2_0.find_resourceid_by_name_or_id',
+            'neutronclient.neutron.v2_0.find_resourceid_by_name_or_id',
             self._find_resourceid))
         self.useFixture(fixtures.MonkeyPatch(
-            'quantumclient.v2_0.client.Client.get_attr_metadata',
+            'neutronclient.v2_0.client.Client.get_attr_metadata',
             self._get_attr_metadata))
         self.client = client.Client(token=TOKEN, endpoint_url=self.endurl)
 
@@ -443,7 +443,7 @@ class CLITestV20Base(testtools.TestCase):
         self.assertTrue(myid in _str)
 
     def _test_update_resource_action(self, resource, cmd, myid, action, args,
-                                     body):
+                                     body, retval=None):
         self.mox.StubOutWithMock(cmd, "get_client")
         self.mox.StubOutWithMock(self.client.httpclient, "request")
         cmd.get_client().MultipleTimes().AndReturn(self.client)
@@ -453,7 +453,7 @@ class CLITestV20Base(testtools.TestCase):
             end_url(path % path_action, format=self.format), 'PUT',
             body=MyComparator(body, self.client),
             headers=mox.ContainsKeyValue(
-                'X-Auth-Token', TOKEN)).AndReturn((MyResp(204), None))
+                'X-Auth-Token', TOKEN)).AndReturn((MyResp(204), retval))
         args.extend(['--request-format', self.format])
         self.mox.ReplayAll()
         cmd_parser = cmd.get_parser("delete_" + resource)
