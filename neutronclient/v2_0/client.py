@@ -182,6 +182,14 @@ class Client(object):
     agent_path = "/agents/%s"
     network_gateways_path = "/network-gateways"
     network_gateway_path = "/network-gateways/%s"
+    credentials_path = "/credentials"
+    credential_path = "/credentials/%s"
+    network_profiles_path = "/network_profiles"
+    network_profile_path = "/network_profiles/%s"
+    network_profile_bindings_path = "/network_profile_bindings"
+    policy_profiles_path = "/policy_profiles"
+    policy_profile_path = "/policy_profiles/%s"
+    policy_profile_bindings_path = "/policy_profile_bindings"
 
     DHCP_NETS = '/dhcp-networks'
     DHCP_AGENTS = '/dhcp-agents'
@@ -716,6 +724,134 @@ class Client(object):
         """Remove a router from l3 agent."""
         return self.delete((self.agent_path + self.L3_ROUTERS + "/%s") % (
             l3_agent, router_id))
+
+    def list_credentials(self, **_params):
+        """
+        Fetches a list of all credentials for a tenant
+        """
+        # Pass filters in "params" argument to do_request
+        return self.get(self.credentials_path, params=_params)
+
+    @APIParamsCall
+    def show_credential(self, credential, **_params):
+        """
+            Fetches information of a certain credential
+        """
+        return self.get(self.credential_path % (credential), params=_params)
+
+    @APIParamsCall
+    def create_credential(self, body=None):
+        """
+        Creates a new credential
+        """
+        return self.post(self.credentials_path, body=body)
+
+    @APIParamsCall
+    def update_credential(self, credential, body=None):
+        """
+        Updates a credential
+        """
+        return self.put(self.credential_path % (credential), body=body)
+
+    @APIParamsCall
+    def delete_credential(self, credential):
+        """
+        Deletes the specified credential
+        """
+        return self.delete(self.credential_path % (credential))
+
+    def list_network_profile_bindings(self, **params):
+        """     
+        Fetches a list of all tenants associated for a network profile.
+        :param _params:
+        :return:
+        """
+        return self.get(self.network_profile_bindings_path, params=params)
+
+    @APIParamsCall
+    def list_network_profiles(self, **params):
+        """
+        Fetches a list of all network profiles for a tenant
+        :param _params:
+        :return:
+        """
+        return self.get(self.network_profiles_path, params=params)
+
+    @APIParamsCall
+    def show_network_profile(self, profile, **params):
+        """
+        Fetches information about a certain network profile
+        :param profile:
+        :param _params:
+        :return:
+        """
+        return self.get(self.network_profile_path % (profile), params=params)
+
+    @APIParamsCall
+    def create_network_profile(self, body=None):
+        """
+        Create new Network Profile
+        :param body:
+        :return:
+        """
+        return self.post(self.network_profiles_path, body=body)
+
+    @APIParamsCall
+    def update_network_profile(self, profile, body=None):
+        """
+        Update a network profile
+        :param profile:
+        :param body:
+        :return:
+        """
+        return self.put(self.network_profile_path % (profile), body=body)
+
+    @APIParamsCall
+    def delete_network_profile(self, profile):
+        """
+        Delete the network profile
+        :param profile:
+        :return:
+        """
+        return self.delete(self.network_profile_path % profile)
+
+    @APIParamsCall
+    def list_policy_profile_bindings(self, **params):
+        """	
+        Fetches a list of all tenants associated for a policy profile.
+        :param _params:
+        :return:
+        """
+        return self.get(self.policy_profile_bindings_path, params=params)
+
+    @APIParamsCall
+    def list_policy_profiles(self, **params):
+        """
+        Fetches a list of all network profiles for a tenant
+        :param _params:
+        :return:
+        """
+        return self.get(self.policy_profiles_path, params=params)
+
+    @APIParamsCall
+    def show_policy_profile(self, profile, **params):
+        """
+        Fetches information about a certain network profile
+        :param profile:
+        :param _params:
+        :return:
+        """
+        return self.get(self.policy_profile_path % (profile), params=params)
+
+    @APIParamsCall
+    def update_policy_profile(self, profile, body=None):
+        """
+        Update a policy profile
+        :param profile:
+        :param body:
+        :return:
+        """
+        return self.put(self.policy_profile_path % (profile), body=body)
 
     def __init__(self, **kwargs):
         """Initialize a new client for the Neutron v2.0 API."""
