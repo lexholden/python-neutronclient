@@ -75,7 +75,6 @@ class CreateCredential(neutronV20.CreateCommand):
 
 class DeleteCredential(neutronV20.DeleteCommand):
     """Delete a  given credential."""
-
     log = logging.getLogger(__name__ + '.DeleteCredential')
     resource = 'credential'
     allow_names = False
