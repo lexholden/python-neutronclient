@@ -39,6 +39,7 @@ class ShowPolicyProfile(ShowCommand):
     log = logging.getLogger(__name__ + '.ShowProfile')
     allow_names = False
 
+
 class UpdatePolicyProfile(UpdateCommand):
     """Update policy profile's information."""
 
