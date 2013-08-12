@@ -28,7 +28,7 @@ from quantumclient.quantum.v2_0 import parse_args_to_dict
 
 RESOURCE = 'network_profile'
 SEGMENT_TYPE_CHOICES = ['vlan', 'vxlan', 'trunk']
-SEGMENT_SUBTYPE_CHOICES = ['vlan']
+SEGMENT_SUBTYPE_CHOICES = ['vlan', 'unicast', 'multicast']
 
 
 #TODO Finish parameters
