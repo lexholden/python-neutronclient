@@ -16,7 +16,10 @@
 #@author Sergey Sudakovich, Cisco Systems
 
 import logging
-from quantumclient.quantum.v2_0 import ListCommand, ShowCommand, UpdateCommand
+from quantumclient.quantum.v2_0 import QuantumCommand
+from quantumclient.quantum.v2_0 import UpdateCommand
+from quantumclient.quantum.v2_0 import ListCommand
+from quantumclient.quantum.v2_0 import ShowCommand
 
 RESOURCE = 'policy_profile'
 
@@ -45,3 +48,35 @@ class UpdatePolicyProfile(UpdateCommand):
 
     resource = RESOURCE
     log = logging.getLogger(__name__ + '.UpdatePolicyProfile')
+
+
+class UpdatePolicyProfileV2(QuantumCommand):
+    """Update policy profile's information."""
+
+    api = 'network'
+    log = logging.getLogger(__name__ + '.UpdatePolicyProfileV2')
+    resource = RESOURCE
+
+    def get_parser(self, prog_name):
+        parser = super(UpdatePolicyProfileV2, self).get_parser(prog_name)
+        parser.add_argument("--add-tenant",
+                            help="Add tenant to the policy profile")
+        parser.add_argument("--remove-tenant",
+                            help="Remove tenant from the policy profile")
+        return parser
+
+    def run(self, parsed_args):
+        self.log.debug('run(%s)' % parsed_args)
+        quantum_client = self.get_client()
+        quantum_client.format = parsed_args.request_format
+        data = {self.resource: parse_args_to_dict(parsed_args)}
+        if parsed_args.add_tenant:
+            data[self.resource]['add_tenant'] = parsed_args.add_tenant
+        if parsed_args.remove_tenant:
+            data[self.resource]['remove_tenant'] = parsed_args.remove_tenant
+        quantum_client.update_policy_profile(parsed_args.id,
+                                             {self.resource: data})
+        print >>self.app.stdout, (
+            _('Updated %(resource)s: %(id)s') %
+            {'id': parsed_args.id, 'resource': self.resource})
+        return
