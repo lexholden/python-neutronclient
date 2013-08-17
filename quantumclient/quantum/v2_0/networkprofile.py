@@ -43,6 +43,14 @@ class ListNetworkProfile(ListCommand):
                     'multicast_ip_range']
 
 
+class ListNetworkProfileBinding(ListCommand):
+    """List network profiles tenant bindings."""
+
+    resource = "network_profile_binding"
+    log = logging.getLogger(__name__ + '.ListNetworkProfileBinding')
+    _formatters = {}
+    list_columns = ['profile_id', 'tenant_id']
+
 class ShowNetworkProfile(ShowCommand):
     """Show information of a given network profile."""
 

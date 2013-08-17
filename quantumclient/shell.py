@@ -276,6 +276,8 @@ COMMAND_V2 = {
         'quantumclient.quantum.v2_0.networkprofile.DeleteNetworkProfile'),
     'network-profile-update': utils.import_class(
         'quantumclient.quantum.v2_0.networkprofile.UpdateNetworkProfile'),
+    'network-profile-binding-list': utils.import_class(
+        'quantumclient.quantum.v2_0.networkprofile.ListNetworkProfileBinding'),
     'policy-profile-list': utils.import_class(
         'quantumclient.quantum.v2_0.policyprofile.ListPolicyProfile'),
     'policy-profile-show': utils.import_class(
