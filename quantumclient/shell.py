@@ -258,31 +258,31 @@ COMMAND_V2 = {
         'quantumclient.quantum.v2_0.agentscheduler.ListRoutersOnL3Agent'),
     'l3-agent-list-hosting-router': utils.import_class(
         'quantumclient.quantum.v2_0.agentscheduler.ListL3AgentsHostingRouter'),
-    'credential-list': utils.import_class(
+    'cisco-credential-list': utils.import_class(
         'quantumclient.quantum.v2_0.credential.ListCredential'),
-    'credential-show': utils.import_class(
+    'cisco-credential-show': utils.import_class(
         'quantumclient.quantum.v2_0.credential.ShowCredential'),
-    'credential-create': utils.import_class(
+    'cisco-credential-create': utils.import_class(
         'quantumclient.quantum.v2_0.credential.CreateCredential'),
-    'credential-delete': utils.import_class(
+    'cisco-credential-delete': utils.import_class(
         'quantumclient.quantum.v2_0.credential.DeleteCredential'),
-    'network-profile-list': utils.import_class(
+    'cisco-network-profile-list': utils.import_class(
         'quantumclient.quantum.v2_0.networkprofile.ListNetworkProfile'),
-    'network-profile-show': utils.import_class(
+    'cisco-network-profile-show': utils.import_class(
         'quantumclient.quantum.v2_0.networkprofile.ShowNetworkProfile'),
-    'network-profile-create': utils.import_class(
+    'cisco-network-profile-create': utils.import_class(
         'quantumclient.quantum.v2_0.networkprofile.CreateNetworkProfile'),
-    'network-profile-delete': utils.import_class(
+    'cisco-network-profile-delete': utils.import_class(
         'quantumclient.quantum.v2_0.networkprofile.DeleteNetworkProfile'),
-    'network-profile-update': utils.import_class(
+    'cisco-network-profile-update': utils.import_class(
         'quantumclient.quantum.v2_0.networkprofile.UpdateNetworkProfile'),
-    'network-profile-binding-list': utils.import_class(
+    'cisco-network-profile-binding-list': utils.import_class(
         'quantumclient.quantum.v2_0.networkprofile.ListNetworkProfileBinding'),
-    'policy-profile-list': utils.import_class(
+    'cisco-policy-profile-list': utils.import_class(
         'quantumclient.quantum.v2_0.policyprofile.ListPolicyProfile'),
-    'policy-profile-show': utils.import_class(
+    'cisco-policy-profile-show': utils.import_class(
         'quantumclient.quantum.v2_0.policyprofile.ShowPolicyProfile'),
-    'policy-profile-update': utils.import_class(
+    'cisco-policy-profile-update': utils.import_class(
         'quantumclient.quantum.v2_0.policyprofile.UpdatePolicyProfile'),
 }
 
