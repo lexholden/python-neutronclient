@@ -21,6 +21,7 @@
 import logging
 
 from neutronclient.neutron import v2_0 as neutronv20
+from neutronclient.neutron.v2_0 import servicetype
 
 
 class ListVPNService(neutronv20.ListCommand):
@@ -29,9 +30,9 @@ class ListVPNService(neutronv20.ListCommand):
     resource = 'vpnservice'
     log = logging.getLogger(__name__ + '.ListVPNService')
     list_columns = [
-        'id', 'name', 'router_id', 'status'
+        'id', 'name', 'provider', 'router_id', 'status'
     ]
-    _formatters = {}
+    _formatters = {'provider': servicetype.format_provider}
     pagination_support = True
     sorting_support = True
 
@@ -60,6 +61,9 @@ class CreateVPNService(neutronv20.CreateCommand):
             '--description',
             help='Set a description for the vpnservice')
         parser.add_argument(
+            '--provider',
+            help='provider name for vpnservice')
+        parser.add_argument(
             'router', metavar='ROUTER',
             help='Router unique identifier for the vpnservice')
         parser.add_argument(
@@ -79,7 +83,7 @@ class CreateVPNService(neutronv20.CreateCommand):
                                 'admin_state_up': parsed_args.admin_state}, }
         neutronv20.update_dict(parsed_args, body[self.resource],
                                ['name', 'description',
-                                'tenant_id'])
+                                'tenant_id', 'provider'])
 
         return body
 

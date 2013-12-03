@@ -36,19 +36,21 @@ class CLITestV20VpnServiceJSON(test_cli20.CLITestV20Base):
         name = 'myvpnservice'
         description = 'my-vpn-service'
         admin_state = True
+        provider = 'vpnaas'
 
         args = ['--name', name,
                 '--description', description,
                 router,
                 subnet,
-                '--tenant-id', tenant_id]
+                '--tenant-id', tenant_id,
+                '--provider', provider]
 
         position_names = ['admin_state_up', 'name', 'description',
                           'subnet_id', 'router_id',
-                          'tenant_id']
+                          'tenant_id', 'provider']
 
         position_values = [admin_state, name, description,
-                           subnet, router, tenant_id]
+                           subnet, router, tenant_id, provider]
 
         self._test_create_resource(resource, cmd, name, my_id, args,
                                    position_names, position_values)
