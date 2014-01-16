@@ -20,11 +20,8 @@
 import logging
 
 from neutronclient.neutron import v2_0 as neutronV20
+from neutronclient.neutron.v2_0 import servicetype
 from neutronclient.openstack.common.gettextutils import _
-
-
-def _format_provider(pool):
-    return pool.get('provider') or 'N/A'
 
 
 class ListPool(neutronV20.ListCommand):
@@ -34,7 +31,7 @@ class ListPool(neutronV20.ListCommand):
     log = logging.getLogger(__name__ + '.ListPool')
     list_columns = ['id', 'name', 'provider', 'lb_method', 'protocol',
                     'admin_state_up', 'status']
-    _formatters = {'provider': _format_provider}
+    _formatters = {'provider': servicetype.format_provider}
     pagination_support = True
     sorting_support = True
 

@@ -20,6 +20,10 @@ import logging
 from neutronclient.neutron import v2_0 as neutronV20
 
 
+def format_provider(resource):
+    return resource.get('provider') or 'N/A'
+
+
 class ListServiceProvider(neutronV20.ListCommand):
     """List service providers."""
 
