@@ -69,7 +69,9 @@ class CreateNetworkProfile(neutronV20.CreateCommand):
         parser.add_argument('--multicast_ip_range',
                             help=_('Multicast IPv4 Range'))
         parser.add_argument("--add-tenant",
-                            help=_("Add tenant to the network profile"))
+                            action='append', dest='add_tenants',
+                            help=_("Add tenant to the network profile "
+                                   "(This option can be repeated)"))
 
     def args2body(self, parsed_args):
         body = {'network_profile': {'name': parsed_args.name}}
@@ -88,9 +90,9 @@ class CreateNetworkProfile(neutronV20.CreateCommand):
         if parsed_args.multicast_ip_range:
             body['network_profile'].update({'multicast_ip_range':
                                            parsed_args.multicast_ip_range})
-        if parsed_args.add_tenant:
-            body['network_profile'].update({'add_tenant':
-                                           parsed_args.add_tenant})
+        if parsed_args.add_tenants:
+            body['network_profile'].update({'add_tenants':
+                                           parsed_args.add_tenants})
         return body
 
 
@@ -106,9 +108,32 @@ class UpdateNetworkProfile(neutronV20.UpdateCommand):
     """Update network profile's information."""
 
     resource = RESOURCE
+
     log = logging.getLogger(__name__ + '.UpdateNetworkProfile')
+    # Aaron: add_tenants and remove_tenants argumants need to be
+    #        explicitly parsed;
+    #        all other arguments can be passed silently
+    def add_known_arguments(self, parser):
+        parser.add_argument("--remove-tenant",
+                            action='append', dest='remove_tenants',
+                            help=_("Remove tenant from the network profile "
+                                 "(This option can be repeated)"))
+        parser.add_argument("--add-tenant",
+                            action='append', dest='add_tenants',
+                            help=_("Add tenant to the network profile "
+                                   "(This option can be repeated)"))
 
+    def args2body(self, parsed_args):
+        body = {'network_profile': {}}
+        if parsed_args.remove_tenants:
+            body['network_profile'].update({'remove_tenants':
+                                          parsed_args.remove_tenants})
+        if parsed_args.add_tenants:
+            body['network_profile'].update({'add_tenants':
+                                           parsed_args.add_tenants})
+        return body
 
+# Aaron: This function is deprecated
 class UpdateNetworkProfileV2(neutronV20.NeutronCommand):
 
     api = 'network'
