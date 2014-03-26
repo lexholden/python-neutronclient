@@ -60,6 +60,7 @@ from neutronclient.neutron.v2_0.vpn import ikepolicy
 from neutronclient.neutron.v2_0.vpn import ipsec_site_connection
 from neutronclient.neutron.v2_0.vpn import ipsecpolicy
 from neutronclient.neutron.v2_0.vpn import vpnservice
+from neutronclient.neutron.v2_0 import router_type
 from neutronclient.openstack.common.gettextutils import _
 from neutronclient.openstack.common import strutils
 from neutronclient.version import __version__
@@ -271,6 +272,12 @@ COMMAND_V2 = {
     'nuage-netpartition-show': netpartition.ShowNetPartition,
     'nuage-netpartition-create': netpartition.CreateNetPartition,
     'nuage-netpartition-delete': netpartition.DeleteNetPartition,
+    'router-type-list': router_type.ListRouterType,
+    'router-type-show': router_type.ShowRouterType,
+    'router-type-create': router_type.CreateRouterType,
+    'router-type-delete': router_type.DeleteRouterType,
+    'router-type-update': router_type.UpdateRouterType,
+
 }
 
 COMMANDS = {'2.0': COMMAND_V2}

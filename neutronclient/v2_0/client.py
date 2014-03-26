@@ -225,6 +225,8 @@ class Client(object):
     firewall_path = "/fw/firewalls/%s"
     net_partitions_path = "/net-partitions"
     net_partition_path = "/net-partitions/%s"
+    router_types_path = "/router_types"
+    router_type_path = "/router_types/%s"
 
     # API has no way to report plurals, so we have to hard code them
     EXTED_PLURALS = {'routers': 'router',
@@ -248,7 +250,8 @@ class Client(object):
                      'firewalls': 'firewall',
                      'metering_labels': 'metering_label',
                      'metering_label_rules': 'metering_label_rule',
-                     'net_partitions': 'net_partition'
+                     'net_partitions': 'net_partition',
+                     'router_types': 'router_type',
                      }
     # 8192 Is the default max URI len for eventlet.wsgi.server
     MAX_URI_LEN = 8192
@@ -1162,6 +1165,32 @@ class Client(object):
     def delete_net_partition(self, netpartition):
         """Delete the network partition."""
         return self.delete(self.net_partition_path % netpartition)
+
+    @APIParamsCall
+    def list_router_types(self, **params):
+        """Fetch a list of all router_types for a tenant."""
+        return self.get(self.router_types_path, params=params)
+
+    @APIParamsCall
+    def show_router_type(self, router_type, **params):
+        """Fetch a router_type."""
+        return self.get(self.router_type_path % (router_type),
+                        params=params)
+
+    @APIParamsCall
+    def create_router_type(self, body=None):
+        """Create a router_type."""
+        return self.post(self.router_types_path, body=body)
+
+    @APIParamsCall
+    def update_router_type(self, router_type, body=None):
+        """Updates a router type."""
+        return self.put(self.router_type_path % router_type, body=body)
+
+    @APIParamsCall
+    def delete_router_type(self, router_type):
+        """Delete the router_type."""
+        return self.delete(self.router_type_path % router_type)
 
     def __init__(self, **kwargs):
         """Initialize a new client for the Neutron v2.0 API."""
