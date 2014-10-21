@@ -80,12 +80,12 @@ class CreateSubnet(neutronV20.CreateCommand):
         parser.add_argument(
             '--ip-version',
             type=int,
-            default=4, choices=[4, 6],
+            default=4, choices=[4],
             help=_('IP version with default 4'))
         parser.add_argument(
             '--ip_version',
             type=int,
-            choices=[4, 6],
+            choices=[4],
             help=argparse.SUPPRESS)
         parser.add_argument(
             '--gateway', metavar='GATEWAY_IP',
